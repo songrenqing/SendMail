@@ -15,8 +15,8 @@ from email import encoders
 # ==============发送服务器配置==========
 sender_host = 'smtp.163.com'  # 默认服务器地址
 sender_port = '25' #服务器端口
-sender_user = '18516001681@163.com' #用户名
-sender_pwd = 'wySR890'
+sender_user = 'xxxxxxxx@163.com' #用户名
+sender_pwd = 'xxxx'
 sender_name = '上海百分百公司'
 
 # ===============获取通讯录中的人名和相应的邮箱地址======
@@ -53,29 +53,22 @@ def getRecvAddr(addrs,person_name):
 
 def getHtmlContent(html):
     content_html = ''
-
     if not os.path.exists(html):
         print("html文件不存在")
         exit(0)
-
     with open(html,'rb') as f:
         content_html = f.read()
-
     return content_html
 
 # =============加载邮件正文中的图片=========
 
 def getMailImage(image):
     img = ''
-
     if not os.path.exists(image):
         print("图片不存在")
         exit(0)
-
     with open(image,'rb') as f:
-        img = MIMEImage(f.read())
-        
-
+        img = MIMEImage(f.read())      
     return img
 
 # =============添加附件==================
@@ -106,9 +99,8 @@ def send(attach_path,addrBook,html,image):
             recv_addr = getRecvAddr(addrs,person_name)
             
             msg['From'] = formataddr([sender_name,sender_user]) # 设置发件人名称
-            msg['To'] = formataddr([person_name,recv_addr]) # 设置收件人名称  
-            # mail_content = getMailContent(content_path)
-            # msg.attach(MIMEText(mail_content,'plain', 'utf-8'))  # 正文  MIMEText(content,'plain','utf-8')
+            msg['To'] = formataddr([person_name,recv_addr]) # 设置收件人名称
+            
             content_html = getHtmlContent(html)
             msg.attach(MIMEText(content_html,'html','utf-8'))
             mail_img = getMailImage(image)
